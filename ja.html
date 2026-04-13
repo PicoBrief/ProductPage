@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ピコ要約 - YouTube 動画の要約</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --accent: #00c9ff;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-size: 20px;
+            margin-top: 12px;
+        }
+
+        /* Features */
+        .features {
+            padding: 40px 0;
+        }
+
+        .features h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .feature p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 40px 0;
+        }
+
+        .how-it-works h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .step-number {
+            background: var(--accent);
+            color: var(--bg);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .step strong {
+            color: var(--text);
+        }
+
+        /* Languages */
+        .languages {
+            padding: 40px 0;
+        }
+
+        .languages h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .lang-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .lang-tag {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 40px 0;
+        }
+
+        .pricing h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .tier-grid { grid-template-columns: 1fr; }
+        }
+
+        .tier {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .tier h3 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .tier .price {
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .tier ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tier li {
+            color: var(--muted);
+            font-size: 14px;
+            padding: 4px 0;
+        }
+
+        .tier li::before {
+            content: "~";
+            color: var(--accent);
+            margin-right: 8px;
+        }
+
+        /* Privacy & Legal */
+        .legal {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .legal h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .legal h3 {
+            font-size: 18px;
+            margin: 24px 0 8px;
+        }
+
+        .legal p, .legal li {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .legal ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">ピコ<span>要約</span></div>
+        <p class="tagline">YouTube 動画の要約を読んで、聴いて、クイズで確認。</p>
+    </header>
+
+    <section class="features">
+        <h2>ピコ要約の機能</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="feature-icon">🎧</div>
+                <h3>音声要約</h3>
+                <p>あらゆる YouTube 動画の 2 分間の音声要約を聴けます。通勤や運動中に最適。</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📝</div>
+                <h3>詳細ノート</h3>
+                <p>要点、タイムスタンプ、表を含む Markdown 形式の詳細な要約。PDF エクスポートにも対応。</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>インタラクティブクイズ</h3>
+                <p>自動生成されるクイズと解説で、動画の内容をどれだけ理解できたかテストしましょう。</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <h3>あなたの言語で</h3>
+                <p>要約はあなたが最も使いやすい言語でネイティブに生成されます。</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>トピック探索</h3>
+                <p>トピック別に要約を閲覧。カスタムトピックを作成して、興味に合った動画を見つけましょう。</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🆓</div>
+                <h3>閲覧は完全無料</h3>
+                <p>すべての要約、音声、クイズは無料でアクセスできます。ペイウォールなし、閲覧制限なし。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>使い方</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>検索または閲覧</strong>
+                    <p>検索、トピックフィード、最新の要約一覧から YouTube 動画を見つけましょう。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>要約を取得</strong>
+                    <p>ピコ要約が 5 つの形式で要約を生成：タイムスタンプ、要点、詳細ノート、音声要約、クイズ。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>読む、聴く、テストする</strong>
+                    <p>形式を自由に切り替え。音声要約を聴いたり、ノートを読んだり、クイズで自分をテストしたり。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="languages">
+        <h2>対応言語</h2>
+        <div class="lang-list">
+            <span class="lang-tag">English</span>
+            <span class="lang-tag">Français</span>
+            <span class="lang-tag">Español</span>
+            <span class="lang-tag">Português</span>
+            <span class="lang-tag">中文 (繁體)</span>
+            <span class="lang-tag">中文 (简体)</span>
+            <span class="lang-tag">日本語</span>
+            <span class="lang-tag">한국어</span>
+            <span class="lang-tag">हिन्दी</span>
+            <span class="lang-tag">Indonesia</span>
+            <span class="lang-tag">Tiếng Việt</span>
+            <span class="lang-tag">ไทย</span>
+        </div>
+    </section>
+
+
+    <section class="legal" id="privacy">
+        <h2>プライバシーポリシー</h2>
+        <p><em>最終更新日：2026 年 4 月 13 日</em></p>
+
+        <h3>概要</h3>
+        <p>ピコ要約（以下「当社」「本アプリ」）は、YouTube 動画を要約するモバイルアプリケーションです。当社はお客様のプライバシーを保護し、データの取り扱いについて透明性を保つことをお約束します。</p>
+
+        <h3>収集する情報</h3>
+        <ul>
+            <li><strong>アカウント情報：</strong>Google または Apple でサインインした場合、メールアドレスと氏名を保存します。これはアカウント管理のみに使用されます。</li>
+        </ul>
+
+        <h3>第三者サービス</h3>
+        <ul>
+            <li><strong>Google Sign-In：</strong>認証に使用します。<a href="https://policies.google.com/privacy" target="_blank">Google プライバシーポリシー</a>が適用されます。</li>
+            <li><strong>Apple Sign-In：</strong>iOS での認証に使用します。<a href="https://www.apple.com/legal/privacy/" target="_blank">Apple プライバシーポリシー</a>が適用されます。</li>
+            <li><strong>RevenueCat：</strong>アプリ内購入のサブスクリプション管理に使用します。<a href="https://www.revenuecat.com/privacy" target="_blank">RevenueCat プライバシーポリシー</a>が適用されます。</li>
+            <li><strong>Sentry：</strong>問題の修正に役立つクラッシュレポートサービスです。個人識別情報は送信前に除去されます。<a href="https://sentry.io/privacy/" target="_blank">Sentry プライバシーポリシー</a>が適用されます。</li>
+        </ul>
+
+        <h3>データの保持</h3>
+        <ul>
+            <li>アカウントデータは、アカウントを削除するまで保持されます。</li>
+            <li>アプリ内の「アカウント」タブからいつでもアカウントを削除できます。これにより、お客様の個人データは当社のサーバーから削除されます。</li>
+        </ul>
+
+        <h3>お客様の権利</h3>
+        <p>お客様には以下の権利があります：</p>
+        <ul>
+            <li>アプリ内のアカウント情報から個人データを確認すること。</li>
+            <li>「アカウント」タブからいつでもアカウントと関連データを削除すること。</li>
+            <li>アカウントを作成せずにアプリを使用すること（一部機能に制限あり）。</li>
+        </ul>
+
+        <h3>ポリシーの変更</h3>
+        <p>当社は本プライバシーポリシーを随時更新する場合があります。変更はこのページに反映され、「最終更新日」が更新されます。</p>
+
+        <h3>お問い合わせ</h3>
+        <p>本プライバシーポリシーに関するご質問は、<a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a> までご連絡ください。</p>
+    </section>
+
+    <section class="legal" id="delete-account">
+        <h2>アカウントとデータの削除</h2>
+
+        <h3>アカウントの削除方法</h3>
+        <ol style="color: var(--muted); font-size: 14px; padding-left: 20px; margin-bottom: 16px;">
+            <li style="margin-bottom: 8px;">ピコ要約を開き、<strong style="color: var(--text);">アカウント</strong>タブに移動します。</li>
+            <li style="margin-bottom: 8px;"><strong style="color: var(--text);">アカウントを削除</strong>をタップします。</li>
+            <li style="margin-bottom: 8px;">確認画面で削除を承認します。</li>
+        </ol>
+
+        <h3>削除される内容</h3>
+        <ul>
+            <li>アカウントのプロフィールとメールアドレス</li>
+            <li>セッションと認証データ</li>
+            <li>サブスクリプションの記録</li>
+        </ul>
+        <p>アカウントの削除は即座に実行され、元に戻すことはできません。</p>
+
+        <h3>その他の方法：お問い合わせ</h3>
+        <p>アプリからアカウントを削除できない場合は、アカウントに関連付けられたメールアドレスを記載の上、<a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a> まで削除をリクエストしてください。</p>
+    </section>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> ピコ要約. All rights reserved.</p>
+        <p><a href="#privacy">プライバシーポリシー</a></p>
+    </footer>
+
+</div>
+
+</body>
+</html>

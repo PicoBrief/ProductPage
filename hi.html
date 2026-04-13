@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicoBrief - YouTube वीडियो सारांश</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --accent: #00c9ff;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-size: 20px;
+            margin-top: 12px;
+        }
+
+        /* Features */
+        .features {
+            padding: 40px 0;
+        }
+
+        .features h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .feature p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 40px 0;
+        }
+
+        .how-it-works h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .step-number {
+            background: var(--accent);
+            color: var(--bg);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .step strong {
+            color: var(--text);
+        }
+
+        /* Languages */
+        .languages {
+            padding: 40px 0;
+        }
+
+        .languages h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .lang-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .lang-tag {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 40px 0;
+        }
+
+        .pricing h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .tier-grid { grid-template-columns: 1fr; }
+        }
+
+        .tier {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .tier h3 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .tier .price {
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .tier ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tier li {
+            color: var(--muted);
+            font-size: 14px;
+            padding: 4px 0;
+        }
+
+        .tier li::before {
+            content: "~";
+            color: var(--accent);
+            margin-right: 8px;
+        }
+
+        /* Privacy & Legal */
+        .legal {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .legal h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .legal h3 {
+            font-size: 18px;
+            margin: 24px 0 8px;
+        }
+
+        .legal p, .legal li {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .legal ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">Pico<span>Brief</span></div>
+        <p class="tagline">YouTube वीडियो के सारांश - पढ़ें, सुनें और क्विज़ से खुद को परखें।</p>
+    </header>
+
+    <section class="features">
+        <h2>PicoBrief क्या करता है</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="feature-icon">🎧</div>
+                <h3>ऑडियो सारांश</h3>
+                <p>किसी भी YouTube वीडियो का 2 मिनट का ऑडियो सारांश सुनें। यात्रा या वर्कआउट के लिए बिल्कुल सही।</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📝</div>
+                <h3>विस्तृत नोट्स</h3>
+                <p>मुख्य बिंदुओं, टाइमस्टैम्प और तालिकाओं के साथ पूर्ण Markdown सारांश। PDF में एक्सपोर्ट करें।</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>इंटरैक्टिव क्विज़</h3>
+                <p>स्वचालित रूप से बनाए गए प्रश्नों और व्याख्याओं से अपनी समझ का परीक्षण करें।</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <h3>आपकी भाषा में</h3>
+                <p>सारांश आपकी सबसे सहज भाषा में सीधे तैयार होते हैं, अनुवाद नहीं।</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>विषय खोज</h3>
+                <p>विषय के अनुसार सारांश ब्राउज़ करें। अपनी रुचि के वीडियो खोजने के लिए कस्टम विषय बनाएँ।</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🆓</div>
+                <h3>देखना पूरी तरह मुफ़्त</h3>
+                <p>सभी सारांश, ऑडियो और क्विज़ मुफ़्त में उपलब्ध हैं। कोई पेवॉल नहीं, देखने पर कोई सीमा नहीं।</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>कैसे काम करता है</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>खोजें या ब्राउज़ करें</strong>
+                    <p>सर्च, विषय फ़ीड या नवीनतम सारांश सूची से YouTube वीडियो खोजें।</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>सारांश पाएँ</strong>
+                    <p>PicoBrief 5 प्रारूपों में सारांश तैयार करता है: टाइमस्टैम्प, मुख्य बिंदु, विस्तृत नोट्स, ऑडियो सारांश और क्विज़।</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>पढ़ें, सुनें या क्विज़ लें</strong>
+                    <p>प्रारूपों के बीच स्विच करें। ऑडियो सारांश सुनें, नोट्स पढ़ें या क्विज़ से खुद को परखें।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="languages">
+        <h2>उपलब्ध भाषाएँ</h2>
+        <div class="lang-list">
+            <span class="lang-tag">English</span>
+            <span class="lang-tag">Français</span>
+            <span class="lang-tag">Español</span>
+            <span class="lang-tag">Português</span>
+            <span class="lang-tag">中文 (繁體)</span>
+            <span class="lang-tag">中文 (简体)</span>
+            <span class="lang-tag">日本語</span>
+            <span class="lang-tag">한국어</span>
+            <span class="lang-tag">हिन्दी</span>
+            <span class="lang-tag">Indonesia</span>
+            <span class="lang-tag">Tiếng Việt</span>
+            <span class="lang-tag">ไทย</span>
+        </div>
+    </section>
+
+
+    <section class="legal" id="privacy">
+        <h2>गोपनीयता नीति</h2>
+        <p><em>अंतिम अपडेट: 13 अप्रैल, 2026</em></p>
+
+        <h3>अवलोकन</h3>
+        <p>PicoBrief ("हम", "हमारा", "यह ऐप") एक मोबाइल एप्लिकेशन है जो YouTube वीडियो का सारांश बनाता है। हम आपकी गोपनीयता की रक्षा करने और आपके डेटा को कैसे संभालते हैं, इसके बारे में पारदर्शी रहने के लिए प्रतिबद्ध हैं।</p>
+
+        <h3>हम कौन सी जानकारी एकत्र करते हैं</h3>
+        <ul>
+            <li><strong>खाता जानकारी:</strong> यदि आप Google या Apple से साइन इन करते हैं, तो हम आपका ईमेल पता और नाम संग्रहीत करते हैं। इसका उपयोग केवल खाता प्रबंधन के लिए किया जाता है।</li>
+        </ul>
+
+        <h3>तृतीय-पक्ष सेवाएँ</h3>
+        <ul>
+            <li><strong>Google Sign-In:</strong> प्रमाणीकरण के लिए उपयोग किया जाता है। <a href="https://policies.google.com/privacy" target="_blank">Google गोपनीयता नीति</a> लागू होती है।</li>
+            <li><strong>Apple Sign-In:</strong> iOS पर प्रमाणीकरण के लिए उपयोग किया जाता है। <a href="https://www.apple.com/legal/privacy/" target="_blank">Apple गोपनीयता नीति</a> लागू होती है।</li>
+            <li><strong>RevenueCat:</strong> इन-ऐप खरीदारी के लिए सब्सक्रिप्शन प्रबंधन। <a href="https://www.revenuecat.com/privacy" target="_blank">RevenueCat गोपनीयता नीति</a> लागू होती है।</li>
+            <li><strong>Sentry:</strong> समस्याओं को ठीक करने में हमारी मदद के लिए क्रैश रिपोर्टिंग। व्यक्तिगत पहचानकर्ता प्रेषण से पहले हटा दिए जाते हैं। <a href="https://sentry.io/privacy/" target="_blank">Sentry गोपनीयता नीति</a> लागू होती है।</li>
+        </ul>
+
+        <h3>डेटा प्रतिधारण</h3>
+        <ul>
+            <li>खाता डेटा तब तक रखा जाता है जब तक आप अपना खाता हटा नहीं देते।</li>
+            <li>आप ऐप में खाता टैब से कभी भी अपना खाता हटा सकते हैं। इससे आपका व्यक्तिगत डेटा हमारे सर्वर से हट जाएगा।</li>
+        </ul>
+
+        <h3>आपके अधिकार</h3>
+        <p>आपको निम्नलिखित अधिकार हैं:</p>
+        <ul>
+            <li>ऐप में अपनी खाता जानकारी देखकर अपने व्यक्तिगत डेटा तक पहुँचना।</li>
+            <li>खाता टैब से कभी भी अपना खाता और संबंधित डेटा हटाना।</li>
+            <li>बिना खाता बनाए ऐप का उपयोग करना (सीमित कार्यक्षमता के साथ)।</li>
+        </ul>
+
+        <h3>इस नीति में बदलाव</h3>
+        <p>हम समय-समय पर इस गोपनीयता नीति को अपडेट कर सकते हैं। बदलाव इस पृष्ठ पर अपडेटेड "अंतिम अपडेट" तिथि के साथ दिखाई देंगे।</p>
+
+        <h3>संपर्क</h3>
+        <p>यदि इस गोपनीयता नीति के बारे में आपके कोई प्रश्न हैं, तो हमसे <a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a> पर संपर्क करें।</p>
+    </section>
+
+    <section class="legal" id="delete-account">
+        <h2>खाता और डेटा हटाना</h2>
+
+        <h3>अपना खाता कैसे हटाएँ</h3>
+        <ol style="color: var(--muted); font-size: 14px; padding-left: 20px; margin-bottom: 16px;">
+            <li style="margin-bottom: 8px;">PicoBrief खोलें और <strong style="color: var(--text);">खाता</strong> टैब पर जाएँ।</li>
+            <li style="margin-bottom: 8px;"><strong style="color: var(--text);">खाता हटाएँ</strong> पर टैप करें।</li>
+            <li style="margin-bottom: 8px;">पूछे जाने पर हटाने की पुष्टि करें।</li>
+        </ol>
+
+        <h3>क्या हटाया जाता है</h3>
+        <ul>
+            <li>आपकी खाता प्रोफ़ाइल और ईमेल पता</li>
+            <li>आपका सत्र और प्रमाणीकरण डेटा</li>
+            <li>आपके सब्सक्रिप्शन रिकॉर्ड</li>
+        </ul>
+        <p>खाता हटाना तत्काल प्रभावी होता है और इसे पूर्ववत नहीं किया जा सकता।</p>
+
+        <h3>वैकल्पिक तरीका: हमसे संपर्क करें</h3>
+        <p>यदि आप ऐप के माध्यम से अपना खाता हटाने में असमर्थ हैं, तो आप अपने खाते से जुड़े ईमेल पते के साथ <a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a> पर ईमेल करके हटाने का अनुरोध कर सकते हैं।</p>
+    </section>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> PicoBrief. सर्वाधिकार सुरक्षित।</p>
+        <p><a href="#privacy">गोपनीयता नीति</a></p>
+    </footer>
+
+</div>
+
+</body>
+</html>

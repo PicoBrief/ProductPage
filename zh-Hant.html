@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>皮可摘要 - YouTube 影片摘要</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --accent: #00c9ff;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-size: 20px;
+            margin-top: 12px;
+        }
+
+        /* Features */
+        .features {
+            padding: 40px 0;
+        }
+
+        .features h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .feature p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 40px 0;
+        }
+
+        .how-it-works h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .step-number {
+            background: var(--accent);
+            color: var(--bg);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .step strong {
+            color: var(--text);
+        }
+
+        /* Languages */
+        .languages {
+            padding: 40px 0;
+        }
+
+        .languages h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .lang-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .lang-tag {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 40px 0;
+        }
+
+        .pricing h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .tier-grid { grid-template-columns: 1fr; }
+        }
+
+        .tier {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .tier h3 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .tier .price {
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .tier ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tier li {
+            color: var(--muted);
+            font-size: 14px;
+            padding: 4px 0;
+        }
+
+        .tier li::before {
+            content: "~";
+            color: var(--accent);
+            margin-right: 8px;
+        }
+
+        /* Privacy & Legal */
+        .legal {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .legal h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .legal h3 {
+            font-size: 18px;
+            margin: 24px 0 8px;
+        }
+
+        .legal p, .legal li {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .legal ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">皮可<span>摘要</span></div>
+        <p class="tagline">YouTube 影片摘要，可閱讀、可聆聽、可自我測驗。</p>
+    </header>
+
+    <section class="features">
+        <h2>皮可摘要的功能</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="feature-icon">🎧</div>
+                <h3>語音摘要</h3>
+                <p>聆聽任何 YouTube 影片的 2 分鐘語音摘要，通勤或運動時的最佳良伴。</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📝</div>
+                <h3>詳細筆記</h3>
+                <p>完整的 Markdown 摘要，包含重點整理、時間軸和表格，可匯出為 PDF。</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>互動測驗</h3>
+                <p>透過自動產生的測驗題目和解說，檢驗你對影片內容的理解。</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <h3>你的語言</h3>
+                <p>摘要以你最熟悉的語言原生產出，不是翻譯而是直接生成。</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>主題探索</h3>
+                <p>按主題瀏覽摘要，建立自訂主題來發掘符合你興趣的影片。</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🆓</div>
+                <h3>完全免費瀏覽</h3>
+                <p>所有摘要、語音和測驗皆可免費使用，沒有付費牆，瀏覽不設限。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>使用方式</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>搜尋或瀏覽</strong>
+                    <p>透過搜尋、主題訂閱或最新摘要列表，找到想看的 YouTube 影片。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>取得摘要</strong>
+                    <p>皮可摘要會產生 5 種摘要格式：時間軸、重點整理、詳細筆記、語音摘要和測驗。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>閱讀、聆聽或測驗</strong>
+                    <p>自由切換格式。聆聽語音摘要、閱讀筆記，或用測驗來自我檢測。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="languages">
+        <h2>支援語言</h2>
+        <div class="lang-list">
+            <span class="lang-tag">English</span>
+            <span class="lang-tag">Français</span>
+            <span class="lang-tag">Español</span>
+            <span class="lang-tag">Português</span>
+            <span class="lang-tag">中文 (繁體)</span>
+            <span class="lang-tag">中文 (简体)</span>
+            <span class="lang-tag">日本語</span>
+            <span class="lang-tag">한국어</span>
+            <span class="lang-tag">हिन्दी</span>
+            <span class="lang-tag">Indonesia</span>
+            <span class="lang-tag">Tiếng Việt</span>
+            <span class="lang-tag">ไทย</span>
+        </div>
+    </section>
+
+
+    <section class="legal" id="privacy">
+        <h2>隱私權政策</h2>
+        <p><em>最後更新：2026 年 4 月 13 日</em></p>
+
+        <h3>概述</h3>
+        <p>皮可摘要（以下稱「我們」、「本應用程式」）是一款摘要 YouTube 影片的行動應用程式。我們致力於保護您的隱私，並對資料處理方式保持透明。</p>
+
+        <h3>我們收集的資訊</h3>
+        <ul>
+            <li><strong>帳號資訊：</strong>若您透過 Google 或 Apple 登入，我們會儲存您的電子郵件地址和姓名，僅用於帳號管理。</li>
+        </ul>
+
+        <h3>第三方服務</h3>
+        <ul>
+            <li><strong>Google Sign-In：</strong>用於身份驗證。適用 <a href="https://policies.google.com/privacy" target="_blank">Google 隱私權政策</a>。</li>
+            <li><strong>Apple Sign-In：</strong>用於 iOS 上的身份驗證。適用 <a href="https://www.apple.com/legal/privacy/" target="_blank">Apple 隱私權政策</a>。</li>
+            <li><strong>RevenueCat：</strong>用於管理應用程式內購買的訂閱服務。適用 <a href="https://www.revenuecat.com/privacy" target="_blank">RevenueCat 隱私權政策</a>。</li>
+            <li><strong>Sentry：</strong>當機報告服務，協助我們修復問題。個人識別資訊會在傳輸前移除。適用 <a href="https://sentry.io/privacy/" target="_blank">Sentry 隱私權政策</a>。</li>
+        </ul>
+
+        <h3>資料保留</h3>
+        <ul>
+            <li>帳號資料會保留至您刪除帳號為止。</li>
+            <li>您可以隨時從應用程式的「帳號」分頁刪除帳號，您的個人資料將從我們的伺服器中移除。</li>
+        </ul>
+
+        <h3>您的權利</h3>
+        <p>您有權：</p>
+        <ul>
+            <li>透過應用程式中的帳號資訊查看您的個人資料。</li>
+            <li>隨時從「帳號」分頁刪除您的帳號及相關資料。</li>
+            <li>在不建立帳號的情況下使用應用程式（功能會有所限制）。</li>
+        </ul>
+
+        <h3>政策變更</h3>
+        <p>我們可能會不定期更新本隱私權政策。變更內容將反映在本頁面，並更新「最後更新」日期。</p>
+
+        <h3>聯絡我們</h3>
+        <p>如果您對本隱私權政策有任何疑問，請來信 <a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a>。</p>
+    </section>
+
+    <section class="legal" id="delete-account">
+        <h2>帳號與資料刪除</h2>
+
+        <h3>如何刪除帳號</h3>
+        <ol style="color: var(--muted); font-size: 14px; padding-left: 20px; margin-bottom: 16px;">
+            <li style="margin-bottom: 8px;">開啟皮可摘要，前往<strong style="color: var(--text);">帳號</strong>分頁。</li>
+            <li style="margin-bottom: 8px;">點擊<strong style="color: var(--text);">刪除帳號</strong>。</li>
+            <li style="margin-bottom: 8px;">出現提示時確認刪除。</li>
+        </ol>
+
+        <h3>將被刪除的內容</h3>
+        <ul>
+            <li>您的帳號資料和電子郵件地址</li>
+            <li>您的登入階段和驗證資料</li>
+            <li>您的訂閱紀錄</li>
+        </ul>
+        <p>帳號刪除立即生效且無法復原。</p>
+
+        <h3>替代方式：聯絡我們</h3>
+        <p>若您無法透過應用程式刪除帳號，可以寄送電子郵件至 <a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a>，並附上您帳號所使用的電子郵件地址，申請刪除。</p>
+    </section>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> 皮可摘要。保留所有權利。</p>
+        <p><a href="#privacy">隱私權政策</a></p>
+    </footer>
+
+</div>
+
+</body>
+</html>

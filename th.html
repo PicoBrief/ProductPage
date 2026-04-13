@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicoBrief - สรุปวิดีโอ YouTube</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --accent: #00c9ff;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-size: 20px;
+            margin-top: 12px;
+        }
+
+        /* Features */
+        .features {
+            padding: 40px 0;
+        }
+
+        .features h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .feature p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 40px 0;
+        }
+
+        .how-it-works h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .step-number {
+            background: var(--accent);
+            color: var(--bg);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .step strong {
+            color: var(--text);
+        }
+
+        /* Languages */
+        .languages {
+            padding: 40px 0;
+        }
+
+        .languages h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .lang-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .lang-tag {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 40px 0;
+        }
+
+        .pricing h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .tier-grid { grid-template-columns: 1fr; }
+        }
+
+        .tier {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .tier h3 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .tier .price {
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .tier ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tier li {
+            color: var(--muted);
+            font-size: 14px;
+            padding: 4px 0;
+        }
+
+        .tier li::before {
+            content: "~";
+            color: var(--accent);
+            margin-right: 8px;
+        }
+
+        /* Privacy & Legal */
+        .legal {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .legal h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .legal h3 {
+            font-size: 18px;
+            margin: 24px 0 8px;
+        }
+
+        .legal p, .legal li {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .legal ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">Pico<span>Brief</span></div>
+        <p class="tagline">สรุปวิดีโอ YouTube ที่คุณอ่านได้ ฟังได้ และทดสอบความรู้ได้</p>
+    </header>
+
+    <section class="features">
+        <h2>PicoBrief ทำอะไรได้บ้าง</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="feature-icon">🎧</div>
+                <h3>สรุปแบบเสียง</h3>
+                <p>ฟังสรุปเสียง 2 นาทีจากวิดีโอ YouTube ใดก็ได้ เหมาะสำหรับระหว่างเดินทางหรือออกกำลังกาย</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📝</div>
+                <h3>บันทึกอย่างละเอียด</h3>
+                <p>สรุปแบบ Markdown ฉบับเต็มพร้อมประเด็นสำคัญ ไทม์สแตมป์ และตาราง ส่งออกเป็น PDF ได้</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>แบบทดสอบแบบโต้ตอบ</h3>
+                <p>ทดสอบความเข้าใจของคุณด้วยคำถามที่สร้างอัตโนมัติพร้อมคำอธิบาย</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <h3>ภาษาของคุณ</h3>
+                <p>สรุปถูกสร้างขึ้นโดยตรงในภาษาที่คุณถนัดที่สุด ไม่ใช่การแปล</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>สำรวจหัวข้อ</h3>
+                <p>เรียกดูสรุปตามหัวข้อ สร้างหัวข้อที่กำหนดเองเพื่อค้นหาวิดีโอที่ตรงกับความสนใจของคุณ</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🆓</div>
+                <h3>ดูฟรีทั้งหมด</h3>
+                <p>สรุป เสียง และแบบทดสอบทั้งหมดเข้าถึงได้ฟรี ไม่มี paywall ไม่จำกัดการดู</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>วิธีใช้งาน</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>ค้นหาหรือเรียกดู</strong>
+                    <p>ค้นหาวิดีโอ YouTube ผ่านการค้นหา ฟีดหัวข้อ หรือรายการสรุปล่าสุด</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>รับสรุป</strong>
+                    <p>PicoBrief สร้างสรุป 5 รูปแบบ: ไทม์สแตมป์ ประเด็นสำคัญ บันทึกละเอียด สรุปเสียง และแบบทดสอบ</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>อ่าน ฟัง หรือทำแบบทดสอบ</strong>
+                    <p>สลับระหว่างรูปแบบต่างๆ ฟังสรุปเสียง อ่านบันทึก หรือทดสอบตัวเองด้วยแบบทดสอบ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="languages">
+        <h2>ภาษาที่รองรับ</h2>
+        <div class="lang-list">
+            <span class="lang-tag">English</span>
+            <span class="lang-tag">Français</span>
+            <span class="lang-tag">Español</span>
+            <span class="lang-tag">Português</span>
+            <span class="lang-tag">中文 (繁體)</span>
+            <span class="lang-tag">中文 (简体)</span>
+            <span class="lang-tag">日本語</span>
+            <span class="lang-tag">한국어</span>
+            <span class="lang-tag">हिन्दी</span>
+            <span class="lang-tag">Indonesia</span>
+            <span class="lang-tag">Tiếng Việt</span>
+            <span class="lang-tag">ไทย</span>
+        </div>
+    </section>
+
+
+    <section class="legal" id="privacy">
+        <h2>นโยบายความเป็นส่วนตัว</h2>
+        <p><em>อัปเดตล่าสุด: 13 เมษายน 2026</em></p>
+
+        <h3>ภาพรวม</h3>
+        <p>PicoBrief ("เรา", "ของเรา", "แอป") เป็นแอปพลิเคชันมือถือที่สรุปวิดีโอ YouTube เรามุ่งมั่นที่จะปกป้องความเป็นส่วนตัวของคุณและโปร่งใสเกี่ยวกับวิธีที่เราจัดการข้อมูลของคุณ</p>
+
+        <h3>ข้อมูลที่เราเก็บรวบรวม</h3>
+        <ul>
+            <li><strong>ข้อมูลบัญชี:</strong> หากคุณลงชื่อเข้าใช้ด้วย Google หรือ Apple เราจะจัดเก็บที่อยู่อีเมลและชื่อของคุณ ข้อมูลนี้ใช้เพื่อการจัดการบัญชีเท่านั้น</li>
+        </ul>
+
+        <h3>บริการของบุคคลที่สาม</h3>
+        <ul>
+            <li><strong>Google Sign-In:</strong> ใช้สำหรับการยืนยันตัวตน อยู่ภายใต้<a href="https://policies.google.com/privacy" target="_blank">นโยบายความเป็นส่วนตัวของ Google</a></li>
+            <li><strong>Apple Sign-In:</strong> ใช้สำหรับการยืนยันตัวตนบน iOS อยู่ภายใต้<a href="https://www.apple.com/legal/privacy/" target="_blank">นโยบายความเป็นส่วนตัวของ Apple</a></li>
+            <li><strong>RevenueCat:</strong> การจัดการการสมัครสมาชิกสำหรับการซื้อในแอป อยู่ภายใต้<a href="https://www.revenuecat.com/privacy" target="_blank">นโยบายความเป็นส่วนตัวของ RevenueCat</a></li>
+            <li><strong>Sentry:</strong> รายงานข้อขัดข้องเพื่อช่วยเราแก้ไขปัญหา ตัวระบุส่วนบุคคลจะถูกลบก่อนการส่งข้อมูล อยู่ภายใต้<a href="https://sentry.io/privacy/" target="_blank">นโยบายความเป็นส่วนตัวของ Sentry</a></li>
+        </ul>
+
+        <h3>การเก็บรักษาข้อมูล</h3>
+        <ul>
+            <li>ข้อมูลบัญชีจะถูกเก็บรักษาจนกว่าคุณจะลบบัญชี</li>
+            <li>คุณสามารถลบบัญชีได้ทุกเมื่อจากแท็บบัญชีในแอป ข้อมูลส่วนบุคคลของคุณจะถูกลบออกจากเซิร์ฟเวอร์ของเรา</li>
+        </ul>
+
+        <h3>สิทธิ์ของคุณ</h3>
+        <p>คุณมีสิทธิ์ที่จะ:</p>
+        <ul>
+            <li>เข้าถึงข้อมูลส่วนบุคคลโดยดูข้อมูลบัญชีในแอป</li>
+            <li>ลบบัญชีและข้อมูลที่เกี่ยวข้องได้ทุกเมื่อจากแท็บบัญชี</li>
+            <li>ใช้แอปโดยไม่ต้องสร้างบัญชี (จะมีฟังก์ชันจำกัด)</li>
+        </ul>
+
+        <h3>การเปลี่ยนแปลงนโยบาย</h3>
+        <p>เราอาจอัปเดตนโยบายความเป็นส่วนตัวนี้เป็นครั้งคราว การเปลี่ยนแปลงจะแสดงในหน้านี้พร้อมวันที่ "อัปเดตล่าสุด" ที่ปรับปรุงแล้ว</p>
+
+        <h3>ติดต่อ</h3>
+        <p>หากคุณมีคำถามเกี่ยวกับนโยบายความเป็นส่วนตัวนี้ ติดต่อเราได้ที่ <a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a></p>
+    </section>
+
+    <section class="legal" id="delete-account">
+        <h2>การลบบัญชีและข้อมูล</h2>
+
+        <h3>วิธีลบบัญชีของคุณ</h3>
+        <ol style="color: var(--muted); font-size: 14px; padding-left: 20px; margin-bottom: 16px;">
+            <li style="margin-bottom: 8px;">เปิด PicoBrief แล้วไปที่แท็บ<strong style="color: var(--text);">บัญชี</strong></li>
+            <li style="margin-bottom: 8px;">แตะ<strong style="color: var(--text);">ลบบัญชี</strong></li>
+            <li style="margin-bottom: 8px;">ยืนยันการลบเมื่อได้รับแจ้ง</li>
+        </ol>
+
+        <h3>สิ่งที่จะถูกลบ</h3>
+        <ul>
+            <li>โปรไฟล์บัญชีและที่อยู่อีเมลของคุณ</li>
+            <li>ข้อมูลเซสชันและการยืนยันตัวตนของคุณ</li>
+            <li>บันทึกการสมัครสมาชิกของคุณ</li>
+        </ul>
+        <p>การลบบัญชีมีผลทันทีและไม่สามารถกู้คืนได้</p>
+
+        <h3>ทางเลือก: ติดต่อเรา</h3>
+        <p>หากคุณไม่สามารถลบบัญชีผ่านแอปได้ คุณสามารถขอลบได้โดยส่งอีเมลไปที่ <a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a> พร้อมระบุที่อยู่อีเมลที่เชื่อมโยงกับบัญชีของคุณ</p>
+    </section>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> PicoBrief. สงวนลิขสิทธิ์</p>
+        <p><a href="#privacy">นโยบายความเป็นส่วนตัว</a></p>
+    </footer>
+
+</div>
+
+</body>
+</html>

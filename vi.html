@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicoBrief - Tóm tắt video YouTube</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --accent: #00c9ff;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-size: 20px;
+            margin-top: 12px;
+        }
+
+        /* Features */
+        .features {
+            padding: 40px 0;
+        }
+
+        .features h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .feature p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 40px 0;
+        }
+
+        .how-it-works h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .step-number {
+            background: var(--accent);
+            color: var(--bg);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .step strong {
+            color: var(--text);
+        }
+
+        /* Languages */
+        .languages {
+            padding: 40px 0;
+        }
+
+        .languages h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .lang-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .lang-tag {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 40px 0;
+        }
+
+        .pricing h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .tier-grid { grid-template-columns: 1fr; }
+        }
+
+        .tier {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .tier h3 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .tier .price {
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .tier ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tier li {
+            color: var(--muted);
+            font-size: 14px;
+            padding: 4px 0;
+        }
+
+        .tier li::before {
+            content: "~";
+            color: var(--accent);
+            margin-right: 8px;
+        }
+
+        /* Privacy & Legal */
+        .legal {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .legal h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .legal h3 {
+            font-size: 18px;
+            margin: 24px 0 8px;
+        }
+
+        .legal p, .legal li {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .legal ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">Pico<span>Brief</span></div>
+        <p class="tagline">Tóm tắt video YouTube để đọc, nghe và tự kiểm tra kiến thức.</p>
+    </header>
+
+    <section class="features">
+        <h2>PicoBrief làm được gì</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="feature-icon">🎧</div>
+                <h3>Tóm tắt bằng âm thanh</h3>
+                <p>Nghe bản tóm tắt 2 phút cho bất kỳ video YouTube nào. Lý tưởng khi di chuyển hay tập thể dục.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📝</div>
+                <h3>Ghi chú chi tiết</h3>
+                <p>Bản tóm tắt Markdown đầy đủ với các điểm chính, mốc thời gian và bảng biểu. Xuất ra PDF.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>Câu đố tương tác</h3>
+                <p>Kiểm tra mức độ hiểu bài bằng các câu hỏi trắc nghiệm tự động kèm giải thích.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <h3>Ngôn ngữ của bạn</h3>
+                <p>Tóm tắt được tạo trực tiếp bằng ngôn ngữ bạn thoải mái nhất, không phải bản dịch.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>Khám phá chủ đề</h3>
+                <p>Duyệt tóm tắt theo chủ đề. Tạo chủ đề tùy chỉnh để tìm video phù hợp sở thích của bạn.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🆓</div>
+                <h3>Xem hoàn toàn miễn phí</h3>
+                <p>Tất cả tóm tắt, âm thanh và câu đố đều miễn phí. Không paywall, không giới hạn xem.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>Cách hoạt động</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Tìm kiếm hoặc duyệt</strong>
+                    <p>Tìm video YouTube qua tìm kiếm, nguồn cấp chủ đề hoặc danh sách tóm tắt mới nhất.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Nhận tóm tắt</strong>
+                    <p>PicoBrief tạo 5 định dạng tóm tắt: mốc thời gian, điểm chính, ghi chú chi tiết, tóm tắt âm thanh và câu đố.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Đọc, nghe hoặc làm quiz</strong>
+                    <p>Chuyển đổi giữa các định dạng. Nghe tóm tắt âm thanh, đọc ghi chú hoặc tự kiểm tra bằng câu đố.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="languages">
+        <h2>Ngôn ngữ hỗ trợ</h2>
+        <div class="lang-list">
+            <span class="lang-tag">English</span>
+            <span class="lang-tag">Français</span>
+            <span class="lang-tag">Español</span>
+            <span class="lang-tag">Português</span>
+            <span class="lang-tag">中文 (繁體)</span>
+            <span class="lang-tag">中文 (简体)</span>
+            <span class="lang-tag">日本語</span>
+            <span class="lang-tag">한국어</span>
+            <span class="lang-tag">हिन्दी</span>
+            <span class="lang-tag">Indonesia</span>
+            <span class="lang-tag">Tiếng Việt</span>
+            <span class="lang-tag">ไทย</span>
+        </div>
+    </section>
+
+
+    <section class="legal" id="privacy">
+        <h2>Chính sách quyền riêng tư</h2>
+        <p><em>Cập nhật lần cuối: 13 tháng 4, 2026</em></p>
+
+        <h3>Tổng quan</h3>
+        <p>PicoBrief ("chúng tôi", "của chúng tôi", "ứng dụng") là ứng dụng di động tóm tắt video YouTube. Chúng tôi cam kết bảo vệ quyền riêng tư của bạn và minh bạch về cách xử lý dữ liệu.</p>
+
+        <h3>Thông tin chúng tôi thu thập</h3>
+        <ul>
+            <li><strong>Thông tin tài khoản:</strong> Nếu bạn đăng nhập bằng Google hoặc Apple, chúng tôi lưu trữ địa chỉ email và tên của bạn. Thông tin này chỉ được sử dụng để quản lý tài khoản.</li>
+        </ul>
+
+        <h3>Dịch vụ bên thứ ba</h3>
+        <ul>
+            <li><strong>Google Sign-In:</strong> Dùng để xác thực. Tuân theo <a href="https://policies.google.com/privacy" target="_blank">Chính sách quyền riêng tư của Google</a>.</li>
+            <li><strong>Apple Sign-In:</strong> Dùng để xác thực trên iOS. Tuân theo <a href="https://www.apple.com/legal/privacy/" target="_blank">Chính sách quyền riêng tư của Apple</a>.</li>
+            <li><strong>RevenueCat:</strong> Quản lý đăng ký cho mua hàng trong ứng dụng. Tuân theo <a href="https://www.revenuecat.com/privacy" target="_blank">Chính sách quyền riêng tư của RevenueCat</a>.</li>
+            <li><strong>Sentry:</strong> Báo cáo lỗi để giúp chúng tôi khắc phục sự cố. Thông tin nhận dạng cá nhân được loại bỏ trước khi gửi. Tuân theo <a href="https://sentry.io/privacy/" target="_blank">Chính sách quyền riêng tư của Sentry</a>.</li>
+        </ul>
+
+        <h3>Lưu giữ dữ liệu</h3>
+        <ul>
+            <li>Dữ liệu tài khoản được lưu giữ cho đến khi bạn xóa tài khoản.</li>
+            <li>Bạn có thể xóa tài khoản bất cứ lúc nào từ tab Tài khoản trong ứng dụng. Điều này sẽ xóa dữ liệu cá nhân của bạn khỏi máy chủ của chúng tôi.</li>
+        </ul>
+
+        <h3>Quyền của bạn</h3>
+        <p>Bạn có quyền:</p>
+        <ul>
+            <li>Truy cập dữ liệu cá nhân bằng cách xem thông tin tài khoản trong ứng dụng.</li>
+            <li>Xóa tài khoản và dữ liệu liên quan bất cứ lúc nào từ tab Tài khoản.</li>
+            <li>Sử dụng ứng dụng mà không cần tạo tài khoản (với chức năng hạn chế).</li>
+        </ul>
+
+        <h3>Thay đổi chính sách</h3>
+        <p>Chúng tôi có thể cập nhật chính sách quyền riêng tư này theo thời gian. Các thay đổi sẽ được phản ánh trên trang này với ngày "Cập nhật lần cuối" được điều chỉnh.</p>
+
+        <h3>Liên hệ</h3>
+        <p>Nếu bạn có câu hỏi về chính sách quyền riêng tư này, hãy liên hệ với chúng tôi tại <a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a>.</p>
+    </section>
+
+    <section class="legal" id="delete-account">
+        <h2>Xóa tài khoản & dữ liệu</h2>
+
+        <h3>Cách xóa tài khoản</h3>
+        <ol style="color: var(--muted); font-size: 14px; padding-left: 20px; margin-bottom: 16px;">
+            <li style="margin-bottom: 8px;">Mở PicoBrief và chuyển đến tab <strong style="color: var(--text);">Tài khoản</strong>.</li>
+            <li style="margin-bottom: 8px;">Nhấn <strong style="color: var(--text);">Xóa tài khoản</strong>.</li>
+            <li style="margin-bottom: 8px;">Xác nhận xóa khi được hỏi.</li>
+        </ol>
+
+        <h3>Những gì bị xóa</h3>
+        <ul>
+            <li>Hồ sơ tài khoản và địa chỉ email của bạn</li>
+            <li>Dữ liệu phiên và xác thực của bạn</li>
+            <li>Hồ sơ đăng ký của bạn</li>
+        </ul>
+        <p>Việc xóa tài khoản có hiệu lực ngay lập tức và không thể hoàn tác.</p>
+
+        <h3>Cách khác: Liên hệ chúng tôi</h3>
+        <p>Nếu bạn không thể xóa tài khoản qua ứng dụng, bạn có thể yêu cầu xóa bằng cách gửi email đến <a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a> kèm theo địa chỉ email liên kết với tài khoản của bạn.</p>
+    </section>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> PicoBrief. Bảo lưu mọi quyền.</p>
+        <p><a href="#privacy">Chính sách quyền riêng tư</a></p>
+    </footer>
+
+</div>
+
+</body>
+</html>

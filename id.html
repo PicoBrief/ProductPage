@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicoBrief - Ringkasan Video YouTube</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --accent: #00c9ff;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-size: 20px;
+            margin-top: 12px;
+        }
+
+        /* Features */
+        .features {
+            padding: 40px 0;
+        }
+
+        .features h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .feature p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 40px 0;
+        }
+
+        .how-it-works h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .step-number {
+            background: var(--accent);
+            color: var(--bg);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .step strong {
+            color: var(--text);
+        }
+
+        /* Languages */
+        .languages {
+            padding: 40px 0;
+        }
+
+        .languages h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .lang-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .lang-tag {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 40px 0;
+        }
+
+        .pricing h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .tier-grid { grid-template-columns: 1fr; }
+        }
+
+        .tier {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .tier h3 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .tier .price {
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .tier ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tier li {
+            color: var(--muted);
+            font-size: 14px;
+            padding: 4px 0;
+        }
+
+        .tier li::before {
+            content: "~";
+            color: var(--accent);
+            margin-right: 8px;
+        }
+
+        /* Privacy & Legal */
+        .legal {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .legal h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .legal h3 {
+            font-size: 18px;
+            margin: 24px 0 8px;
+        }
+
+        .legal p, .legal li {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .legal ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">Pico<span>Brief</span></div>
+        <p class="tagline">Ringkasan video YouTube yang bisa dibaca, didengar, dan diuji lewat kuis.</p>
+    </header>
+
+    <section class="features">
+        <h2>Apa yang PicoBrief Lakukan</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="feature-icon">🎧</div>
+                <h3>Ringkasan Audio</h3>
+                <p>Dengarkan ringkasan audio 2 menit dari video YouTube mana pun. Cocok untuk perjalanan dan olahraga.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📝</div>
+                <h3>Catatan Lengkap</h3>
+                <p>Ringkasan Markdown lengkap dengan poin-poin penting, penanda waktu, dan tabel. Ekspor ke PDF.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>Kuis Interaktif</h3>
+                <p>Uji pemahamanmu dengan pertanyaan kuis yang dibuat otomatis beserta penjelasannya.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <h3>Dalam Bahasamu</h3>
+                <p>Ringkasan dibuat langsung dalam bahasa yang paling kamu kuasai, bukan hasil terjemahan.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>Jelajahi Topik</h3>
+                <p>Telusuri ringkasan berdasarkan topik. Buat topik khusus untuk menemukan video yang sesuai minatmu.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🆓</div>
+                <h3>Gratis Sepenuhnya untuk Dilihat</h3>
+                <p>Semua ringkasan, audio, dan kuis bisa diakses gratis. Tanpa paywall, tanpa batasan akses.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>Cara Kerja</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Cari atau jelajahi</strong>
+                    <p>Temukan video YouTube melalui pencarian, feed topik, atau daftar ringkasan terbaru.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Dapatkan ringkasan</strong>
+                    <p>PicoBrief menghasilkan 5 format ringkasan: penanda waktu, poin penting, catatan lengkap, ringkasan audio, dan kuis.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Baca, dengar, atau kuis</strong>
+                    <p>Beralih antar format sesukamu. Dengarkan ringkasan audio, baca catatannya, atau uji dirimu dengan kuis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="languages">
+        <h2>Bahasa yang Didukung</h2>
+        <div class="lang-list">
+            <span class="lang-tag">English</span>
+            <span class="lang-tag">Français</span>
+            <span class="lang-tag">Español</span>
+            <span class="lang-tag">Português</span>
+            <span class="lang-tag">中文 (繁體)</span>
+            <span class="lang-tag">中文 (简体)</span>
+            <span class="lang-tag">日本語</span>
+            <span class="lang-tag">한국어</span>
+            <span class="lang-tag">हिन्दी</span>
+            <span class="lang-tag">Indonesia</span>
+            <span class="lang-tag">Tiếng Việt</span>
+            <span class="lang-tag">ไทย</span>
+        </div>
+    </section>
+
+
+    <section class="legal" id="privacy">
+        <h2>Kebijakan Privasi</h2>
+        <p><em>Terakhir diperbarui: 13 April 2026</em></p>
+
+        <h3>Ringkasan</h3>
+        <p>PicoBrief ("kami", "milik kami", "aplikasi ini") adalah aplikasi seluler yang meringkas video YouTube. Kami berkomitmen untuk melindungi privasi Anda dan transparan tentang cara kami menangani data Anda.</p>
+
+        <h3>Informasi yang Kami Kumpulkan</h3>
+        <ul>
+            <li><strong>Informasi akun:</strong> Jika Anda masuk dengan Google atau Apple, kami menyimpan alamat email dan nama Anda. Ini digunakan semata-mata untuk pengelolaan akun.</li>
+        </ul>
+
+        <h3>Layanan Pihak Ketiga</h3>
+        <ul>
+            <li><strong>Google Sign-In:</strong> Digunakan untuk autentikasi. Tunduk pada <a href="https://policies.google.com/privacy" target="_blank">Kebijakan Privasi Google</a>.</li>
+            <li><strong>Apple Sign-In:</strong> Digunakan untuk autentikasi di iOS. Tunduk pada <a href="https://www.apple.com/legal/privacy/" target="_blank">Kebijakan Privasi Apple</a>.</li>
+            <li><strong>RevenueCat:</strong> Manajemen langganan untuk pembelian dalam aplikasi. Tunduk pada <a href="https://www.revenuecat.com/privacy" target="_blank">Kebijakan Privasi RevenueCat</a>.</li>
+            <li><strong>Sentry:</strong> Pelaporan kerusakan untuk membantu kami memperbaiki masalah. Pengidentifikasi pribadi dihapus sebelum pengiriman. Tunduk pada <a href="https://sentry.io/privacy/" target="_blank">Kebijakan Privasi Sentry</a>.</li>
+        </ul>
+
+        <h3>Penyimpanan Data</h3>
+        <ul>
+            <li>Data akun disimpan sampai Anda menghapus akun Anda.</li>
+            <li>Anda dapat menghapus akun kapan saja dari tab Akun di aplikasi. Ini akan menghapus data pribadi Anda dari server kami.</li>
+        </ul>
+
+        <h3>Hak Anda</h3>
+        <p>Anda berhak untuk:</p>
+        <ul>
+            <li>Mengakses data pribadi Anda dengan melihat informasi akun di aplikasi.</li>
+            <li>Menghapus akun dan data terkait kapan saja dari tab Akun.</li>
+            <li>Menggunakan aplikasi tanpa membuat akun (dengan fungsionalitas terbatas).</li>
+        </ul>
+
+        <h3>Perubahan Kebijakan Ini</h3>
+        <p>Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Perubahan akan tercermin di halaman ini dengan tanggal "Terakhir diperbarui" yang direvisi.</p>
+
+        <h3>Kontak</h3>
+        <p>Jika Anda memiliki pertanyaan tentang kebijakan privasi ini, hubungi kami di <a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a>.</p>
+    </section>
+
+    <section class="legal" id="delete-account">
+        <h2>Penghapusan Akun & Data</h2>
+
+        <h3>Cara Menghapus Akun Anda</h3>
+        <ol style="color: var(--muted); font-size: 14px; padding-left: 20px; margin-bottom: 16px;">
+            <li style="margin-bottom: 8px;">Buka PicoBrief dan buka tab <strong style="color: var(--text);">Akun</strong>.</li>
+            <li style="margin-bottom: 8px;">Ketuk <strong style="color: var(--text);">Hapus Akun</strong>.</li>
+            <li style="margin-bottom: 8px;">Konfirmasi penghapusan saat diminta.</li>
+        </ol>
+
+        <h3>Yang Dihapus</h3>
+        <ul>
+            <li>Profil akun dan alamat email Anda</li>
+            <li>Data sesi dan autentikasi Anda</li>
+            <li>Catatan langganan Anda</li>
+        </ul>
+        <p>Penghapusan akun berlaku segera dan tidak dapat dibatalkan.</p>
+
+        <h3>Alternatif: Hubungi Kami</h3>
+        <p>Jika Anda tidak dapat menghapus akun melalui aplikasi, Anda dapat meminta penghapusan dengan mengirim email ke <a href="mailto:picobrief@gmail.com">picobrief@gmail.com</a> beserta alamat email yang terkait dengan akun Anda.</p>
+    </section>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> PicoBrief. Hak cipta dilindungi.</p>
+        <p><a href="#privacy">Kebijakan Privasi</a></p>
+    </footer>
+
+</div>
+
+</body>
+</html>
