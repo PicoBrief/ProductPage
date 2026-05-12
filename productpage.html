@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicoBrief</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .logo span { color: #00c9ff; }
+        .subtitle {
+            color: #94a3b8;
+            font-size: 18px;
+            margin-bottom: 48px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 540px;
+            width: 100%;
+        }
+        @media (max-width: 480px) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        a.lang {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-decoration: none;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        a.lang:hover {
+            background: #263348;
+            border-color: #00c9ff;
+        }
+        .native-name {
+            color: #e2e8f0;
+            font-size: 17px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .english-name {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 4px;
+            text-align: center;
+        }
+        footer {
+            margin-top: 48px;
+            color: #64748b;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">Pico<span>Brief</span></div>
+    <p class="subtitle">Choose your language</p>
+    <div class="grid">
+        <a class="lang" href="en.html">
+            <span class="native-name">English</span>
+            <span class="english-name">English</span>
+        </a>
+        <a class="lang" href="fr.html">
+            <span class="native-name">Français</span>
+            <span class="english-name">French</span>
+        </a>
+        <a class="lang" href="es.html">
+            <span class="native-name">Español</span>
+            <span class="english-name">Spanish</span>
+        </a>
+        <a class="lang" href="pt-BR.html">
+            <span class="native-name">Português</span>
+            <span class="english-name">Portuguese</span>
+        </a>
+        <a class="lang" href="zh-Hant.html">
+            <span class="native-name">中文 (繁體)</span>
+            <span class="english-name">Chinese Traditional</span>
+        </a>
+        <a class="lang" href="zh-Hans.html">
+            <span class="native-name">中文 (简体)</span>
+            <span class="english-name">Chinese Simplified</span>
+        </a>
+        <a class="lang" href="ja.html">
+            <span class="native-name">日本語</span>
+            <span class="english-name">Japanese</span>
+        </a>
+        <a class="lang" href="ko.html">
+            <span class="native-name">한국어</span>
+            <span class="english-name">Korean</span>
+        </a>
+        <a class="lang" href="hi.html">
+            <span class="native-name">हिन्दी</span>
+            <span class="english-name">Hindi</span>
+        </a>
+        <a class="lang" href="id.html">
+            <span class="native-name">Indonesia</span>
+            <span class="english-name">Indonesian</span>
+        </a>
+        <a class="lang" href="vi.html">
+            <span class="native-name">Tiếng Việt</span>
+            <span class="english-name">Vietnamese</span>
+        </a>
+        <a class="lang" href="th.html">
+            <span class="native-name">ไทย</span>
+            <span class="english-name">Thai</span>
+        </a>
+    </div>
+    <footer>&copy; <script>document.write(new Date().getFullYear())</script> PicoBrief</footer>
+</body>
+</html>
